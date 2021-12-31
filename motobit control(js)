@@ -1,0 +1,88 @@
+enum RadioMessage {
+    message2 = 1435,
+    message6 = 19755,
+    message4 = 29926,
+    message3 = 31126,
+    message5 = 42976,
+    message1 = 49434
+}
+let LCal = 0
+let CCal = 0
+let RCal = 0
+radio.onReceivedMessage(RadioMessage.message4, function () {
+    motobit.setMotorSpeed(Motor.Right, MotorDirection.Forward, 5)
+    motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 35)
+    basic.showLeds(`
+        . . # . .
+        . . # # .
+        # # # # #
+        . . # # .
+        . . # . .
+        `)
+})
+radio.onReceivedMessage(RadioMessage.message3, function () {
+    motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 5)
+    motobit.setMotorSpeed(Motor.Right, MotorDirection.Forward, 35)
+    basic.showLeds(`
+        . . # . .
+        . # # . .
+        # # # # #
+        . # # . .
+        . . # . .
+        `)
+})
+input.onButtonPressed(Button.A, function () {
+    motobit.enable(MotorPower.On)
+    motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 60)
+    motobit.setMotorSpeed(Motor.Right, MotorDirection.Forward, 60)
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        # # # # #
+        . . # . .
+        . . # . .
+        `)
+})
+radio.onReceivedMessage(RadioMessage.message6, function () {
+    motobit.setMotorSpeed(Motor.Right, MotorDirection.Reverse, 40)
+    motobit.setMotorSpeed(Motor.Left, MotorDirection.Reverse, 40)
+    basic.showLeds(`
+        . . # . .
+        . . # . .
+        # # # # #
+        . # # # .
+        . . # . .
+        `)
+})
+radio.onReceivedMessage(RadioMessage.message5, function () {
+	
+})
+input.onButtonPressed(Button.B, function () {
+    motobit.enable(MotorPower.Off)
+    basic.showString("Stop")
+})
+radio.onReceivedMessage(RadioMessage.message2, function () {
+    motobit.enable(MotorPower.Off)
+    basic.showString("Stop")
+})
+radio.onReceivedMessage(RadioMessage.message1, function () {
+    motobit.enable(MotorPower.On)
+    motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 60)
+    motobit.setMotorSpeed(Motor.Right, MotorDirection.Forward, 60)
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        # # # # #
+        . . # . .
+        . . # . .
+        `)
+})
+basic.forever(function () {
+    LCal = pins.analogReadPin(AnalogPin.P0)
+    CCal = pins.analogReadPin(AnalogPin.P1)
+    RCal = pins.analogReadPin(AnalogPin.P2)
+})
+// #sets microbit to group 3
+basic.forever(function () {
+    radio.setGroup(3)
+})
