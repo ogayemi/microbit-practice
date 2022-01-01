@@ -9,18 +9,8 @@ enum RadioMessage {
 let LCal = 0
 let CCal = 0
 let RCal = 0
+// on message 1 received from connected micro:bit motor bot turns left
 radio.onReceivedMessage(RadioMessage.message4, function () {
-    motobit.setMotorSpeed(Motor.Right, MotorDirection.Forward, 5)
-    motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 35)
-    basic.showLeds(`
-        . . # . .
-        . . # # .
-        # # # # #
-        . . # # .
-        . . # . .
-        `)
-})
-radio.onReceivedMessage(RadioMessage.message3, function () {
     motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 5)
     motobit.setMotorSpeed(Motor.Right, MotorDirection.Forward, 35)
     basic.showLeds(`
@@ -31,6 +21,19 @@ radio.onReceivedMessage(RadioMessage.message3, function () {
         . . # . .
         `)
 })
+// when radio message 3 is recieved, reverse motors
+radio.onReceivedMessage(RadioMessage.message3, function () {
+    motobit.setMotorSpeed(Motor.Right, MotorDirection.Reverse, 40)
+    motobit.setMotorSpeed(Motor.Left, MotorDirection.Reverse, 40)
+    basic.showLeds(`
+        . . # . .
+        . . # . .
+        # # # # #
+        . # # # .
+        . . # . .
+        `)
+})
+// assigns input function "B" to start motors
 input.onButtonPressed(Button.A, function () {
     motobit.enable(MotorPower.On)
     motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 60)
@@ -43,28 +46,29 @@ input.onButtonPressed(Button.A, function () {
         . . # . .
         `)
 })
-radio.onReceivedMessage(RadioMessage.message6, function () {
-    motobit.setMotorSpeed(Motor.Right, MotorDirection.Reverse, 40)
-    motobit.setMotorSpeed(Motor.Left, MotorDirection.Reverse, 40)
+// when radio message 5 is recieved, turn motor right
+radio.onReceivedMessage(RadioMessage.message5, function () {
+    motobit.setMotorSpeed(Motor.Right, MotorDirection.Forward, 5)
+    motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 35)
     basic.showLeds(`
         . . # . .
-        . . # . .
+        . . # # .
         # # # # #
-        . # # # .
+        . . # # .
         . . # . .
         `)
 })
-radio.onReceivedMessage(RadioMessage.message5, function () {
-	
-})
+// Assigns input function "B" to stop motors
 input.onButtonPressed(Button.B, function () {
     motobit.enable(MotorPower.Off)
     basic.showString("Stop")
 })
+// when radio message 2 is recieved, stop motors
 radio.onReceivedMessage(RadioMessage.message2, function () {
     motobit.enable(MotorPower.Off)
     basic.showString("Stop")
 })
+// when radio message 1 is recieved, start/move motors forward
 radio.onReceivedMessage(RadioMessage.message1, function () {
     motobit.enable(MotorPower.On)
     motobit.setMotorSpeed(Motor.Left, MotorDirection.Forward, 60)
