@@ -1,14 +1,14 @@
 enum RadioMessage {
-    message1 = 49434,
     message2 = 1435,
-    message3 = 31126,
+    message6 = 19755,
     message4 = 29926,
+    message3 = 31126,
     message5 = 42976,
-    message6 = 19755
+    message1 = 49434
 }
 // assigns function "on button  A pressed" to turn left
 input.onButtonPressed(Button.A, function () {
-    radio.sendMessage(RadioMessage.message3)
+    radio.sendMessage(RadioMessage.message4)
     basic.showLeds(`
         . . # . .
         . # # . .
@@ -19,7 +19,7 @@ input.onButtonPressed(Button.A, function () {
 })
 // assigns function "tilt left or right" to reverse motors
 input.onGesture(Gesture.TiltLeft, function () {
-    radio.sendMessage(RadioMessage.message5)
+    radio.sendMessage(RadioMessage.message3)
     basic.showLeds(`
         . . # . .
         . . # . .
@@ -35,7 +35,7 @@ input.onButtonPressed(Button.AB, function () {
 })
 // assigns function "on button  B pressed" to turn right
 input.onButtonPressed(Button.B, function () {
-    radio.sendMessage(RadioMessage.message4)
+    radio.sendMessage(RadioMessage.message5)
     basic.showLeds(`
         . . # . .
         . . # # .
@@ -50,7 +50,7 @@ input.onGesture(Gesture.Shake, function () {
     basic.showString("Stop")
 })
 input.onGesture(Gesture.TiltRight, function () {
-    radio.sendMessage(RadioMessage.message5)
+    radio.sendMessage(RadioMessage.message3)
     basic.showLeds(`
         . . # . .
         . . # . .
